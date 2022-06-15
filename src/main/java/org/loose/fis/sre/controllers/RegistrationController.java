@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.loose.fis.sre.Main;
+import org.loose.fis.sre.exceptions.LoginExceptions;
 import org.loose.fis.sre.exceptions.UsernameAlreadyExistsException;
 import org.loose.fis.sre.services.UserService;
 
@@ -40,11 +41,15 @@ public class RegistrationController {
 
     @FXML
     public void handleRegisterAction() {
-        try {
-            UserService.addUser(usernameField.getText(), passwordField.getText(), (String) role.getValue());
-            registrationMessage.setText("Account created successfully!");
-        } catch (UsernameAlreadyExistsException e) {
-            registrationMessage.setText(e.getMessage());
+        if(usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+            registrationMessage.setText("Complete All fields!");
+        } else {
+            try {
+                UserService.addUser(usernameField.getText(), passwordField.getText(), (String) role.getValue());
+                registrationMessage.setText("Account created successfully!");
+            } catch (UsernameAlreadyExistsException e) {
+                registrationMessage.setText(e.getMessage());
+            }
         }
     }
 

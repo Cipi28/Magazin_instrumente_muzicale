@@ -14,7 +14,7 @@ import static org.loose.fis.sre.services.FileSystemService.getPathToFile;
 
 public class UserService {
 
-    private static ObjectRepository<User> userRepository;
+    static ObjectRepository<User> userRepository;
 
     public static void initDatabase() {
         Nitrite database = Nitrite.builder()
